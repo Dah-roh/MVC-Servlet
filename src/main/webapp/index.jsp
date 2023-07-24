@@ -10,6 +10,8 @@
     }
 </style>
 <body>
+
+<img src="${pageContext.request.contextPath}/resources/images/fb.jpeg" alt="facebook" width="225" height="225"/>
 <h1>Login
 </h1>
 <br/>
