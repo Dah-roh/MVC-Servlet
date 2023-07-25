@@ -10,14 +10,19 @@
 <head>
     <title>DemoFB</title>
 </head>
+<style>
+    textarea {
+        width: 200px;
+    }
+</style>
 <body>
 <%--SEO--%>
 <h1>DemoFB-Social media</h1>
-<p>Welcome user with email :
+<p>Welcome
     <%
         String loggedInUser = "";
-        if (request.getAttribute("email")!=null){
-            loggedInUser = (String) request.getAttribute("email");
+        if (session.getAttribute("name")!=null){
+            loggedInUser = (String) session.getAttribute("name");
     %>
     <%=
     loggedInUser
@@ -25,7 +30,11 @@
     <%
     }
     %>
-
+<h2>Make a post</h2>
+<form method="post" action="${pageContext.request.contextPath}/homepage">
+    <label><textarea name="post" rows="5" cols="8" placeholder="Write something today..."></textarea></label>
+    <button type="submit">Post</button>
+</form>
 
 </p>
 </body>
