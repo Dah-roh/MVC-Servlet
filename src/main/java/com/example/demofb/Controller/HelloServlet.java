@@ -20,7 +20,7 @@ public class HelloServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html");
+
 
         System.out.println("This is your login information: "+request.getParameter("email")+ " "
                 +request.getParameter("password"));

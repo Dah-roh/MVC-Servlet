@@ -1,9 +1,12 @@
 package com.example.demofb.DAO;
 
 import com.example.demofb.DTO.UserDTO;
+import com.example.demofb.Enums.Role;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
 private Connection connection;
@@ -47,5 +50,24 @@ private Connection connection;
         }
         connection.close();
         return null;
+    }
+
+    public List<UserDTO> findAllUsers() throws SQLException, ClassNotFoundException {
+        connect();
+        String query = "select * from users";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        UserDTO userDTO;
+        List<UserDTO> userDTOList = new ArrayList<>();
+        while(resultSet.next()){
+            userDTO =  UserDTO.builder()
+                    .id(resultSet.getLong(1))
+                    .email(resultSet.getString(2))
+                    .firstname(resultSet.getString(4))
+                    .lastname(resultSet.getString(5))
+                    .role(Role.valueOf(resultSet.getString(6))).build();
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
     }
 }
