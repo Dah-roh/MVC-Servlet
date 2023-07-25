@@ -2,18 +2,24 @@ package com.example.demofb.DAO;
 
 import com.example.demofb.DTO.UserDTO;
 import com.example.demofb.Enums.Role;
+import com.mysql.cj.jdbc.Driver;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class UserDAO {
 private Connection connection;
     public void connect() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        Driver driver = new Driver();
+        Properties properties = new Properties();
+        properties.setProperty("user", "root");
+        properties.setProperty("password", "password");
+//        Class.forName("com.mysql.cj.jdbc.Driver");
         if (connection==null||connection.isClosed()){
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Demo_FB", "root", "password");
+            connection = driver.connect("jdbc:mysql://localhost:3306/Demo_FB", properties);
         }
     }
 
