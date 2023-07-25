@@ -41,20 +41,22 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         System.out.println("This is your login information: " + req.getParameter("email") + " "
                 + req.getParameter("password"));
-        System.out.println(req.getParameter("id") + " " + req.getQueryString());
 
 
         if (req.getParameter("signup")!=null) {
             UserDAO userDAO = new UserDAO();
             System.out.println(req.getParameter("signup"));
             try {
-                userDAO.saveUser(UserDTO.builder().email(req.getParameter("email"))
+                userDAO.saveUser(
+                        UserDTO.builder().email(req.getParameter("email"))
                         .password(req.getParameter("password"))
                         .lastname(req.getParameter("lastname"))
                         .firstname(req.getParameter("firstname"))
-                        .role(Role.USER).build());
+                        .role(Role.USER).build()
+                );
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -66,7 +68,7 @@ public class HelloServlet extends HttpServlet {
             }
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
             req.setAttribute("id", 1);
-            req.setAttribute("login", "Please log in "+req.getParameter("firstname"));
+            req.setAttribute("login", "Sign up successful, please log in.");
             requestDispatcher.forward(req, resp);
 
         } else {
@@ -80,6 +82,7 @@ public class HelloServlet extends HttpServlet {
                 if (userDTO!=null) {
                     HttpSession session = req.getSession();
                     session.setAttribute("name", userDTO.getFirstname());
+                    session.setAttribute("trackId", userDTO.getId());
                     requestDispatcher = req.getRequestDispatcher("welcome.jsp");
                     System.out.println("this is the name "+userDTO.getFirstname());
                     requestDispatcher.forward(req, resp);

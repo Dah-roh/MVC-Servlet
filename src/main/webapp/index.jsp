@@ -21,8 +21,8 @@
 <form method="post" action="${pageContext.request.contextPath}/hello-servlet">
     <label>Email: <input name="email" type="email"></label>
     <label>Password: <input name="password" type="password"></label>
-    <label>lastname: <input name="lastname" type="text"></label>
-    <label>firstname: <input name="firstname" type="text"></label>
+    <label>Lastname: <input name="lastname" type="text"></label>
+    <label>Firstname: <input name="firstname" type="text"></label>
     <input name="signup" type="hidden" value="signup">
     <button type="submit">Sign up</button> <a href="${pageContext.request.contextPath}/hello-servlet?id=1" >Login</a> if you have an account
 </form>
