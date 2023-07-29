@@ -3,6 +3,7 @@ package com.example.demofb.Controller;
 import java.io.*;
 import java.sql.SQLException;
 
+import com.example.demofb.DAO.PostDAO;
 import com.example.demofb.DAO.UserDAO;
 import com.example.demofb.DTO.UserDTO;
 import com.example.demofb.Enums.Role;
@@ -83,6 +84,7 @@ public class HelloServlet extends HttpServlet {
                     HttpSession session = req.getSession();
                     session.setAttribute("name", userDTO.getFirstname());
                     session.setAttribute("trackId", userDTO.getId());
+                    req.setAttribute("post", new PostDAO().findAllPostsByUser((Long) session.getAttribute("trackId")));
                     requestDispatcher = req.getRequestDispatcher("welcome.jsp");
                     System.out.println("this is the name "+userDTO.getFirstname());
                     requestDispatcher.forward(req, resp);

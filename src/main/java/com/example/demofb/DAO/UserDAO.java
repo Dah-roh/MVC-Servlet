@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class UserDAO {
 private Connection connection;
-    public void connect() throws ClassNotFoundException, SQLException {
+    public void connect() throws SQLException {
         Driver driver = new Driver();
         Properties properties = new Properties();
         properties.setProperty("user", "root");

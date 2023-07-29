@@ -1,10 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mac
-  Date: 24/07/2023
-  Time: 10:07
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.demofb.DTO.PostDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,6 +8,9 @@
 <style>
     textarea {
         width: 200px;
+    }
+    .link {
+        display: block;
     }
 </style>
 <body>
@@ -30,12 +28,52 @@
     <%
     }
     %>
+
+    <%
+    if (request.getAttribute("update-post")!=null&&request.getAttribute("post")!=null){
+    %>
+<form method="post" action="${pageContext.request.contextPath}/homepage">
+    <textarea name="update-post" rows="5" cols="8"><%=request.getAttribute("update-post")%></textarea>
+    <input type="hidden" name="post-id" value=<%=request.getAttribute("post-id")%>>
+    <button type="submit">Edit</button>
+</form>
+
+<%
+    }
+    else if (request.getAttribute("post")!=null){
+%>
+
+
 <h2>Make a post</h2>
+</p>
 <form method="post" action="${pageContext.request.contextPath}/homepage">
     <label><textarea name="post" rows="5" cols="8" placeholder="Write something today..."></textarea></label>
     <button type="submit">Post</button>
 </form>
 
-</p>
+<section>
+    <h2>Your Posts</h2>
+    <%
+        List<PostDTO> postContent  = (List<PostDTO>) request.getAttribute("post");
+
+        for (PostDTO postDTO : postContent)
+        {
+
+
+        %>
+    <p><%=postDTO.getContent()%>
+    </p><a href=${pageContext.request.contextPath}/homepage?del=<%=postDTO.getId()%>>Delete</a>
+    <a href="${pageContext.request.contextPath}/homepage?upd=<%=postDTO.getId()%>">Edit</a><br/><br/><br/>
+
+    <%
+            }
+
+        }
+
+        %>
+
+
+</section>
+
 </body>
 </html>
