@@ -41,6 +41,7 @@ private Connection connection;
 
     public UserDTO findUser (String email, String password) throws SQLException, ClassNotFoundException {
         connect();
+        //DDL DML
         String query = "select * from users where " +
                 "email=?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

@@ -50,6 +50,7 @@ public class HelloServlet extends HttpServlet {
         if (req.getParameter("signup")!=null) {
             UserDAO userDAO = new UserDAO();
             System.out.println(req.getParameter("signup"));
+            //TODO: Check if user is already in db with isDelete= true;
             try {
                 userDAO.saveUser(
                         UserDTO.builder().email(req.getParameter("email"))
@@ -64,6 +65,7 @@ public class HelloServlet extends HttpServlet {
             try {
                 System.out.println(userDAO.findUser(req.getParameter("email"),
                         req.getParameter("password")));
+                //TODO:if user is null
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
