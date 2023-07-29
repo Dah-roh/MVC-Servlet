@@ -1,5 +1,6 @@
 package com.example.demofb.DAO;
 
+import com.example.demofb.Config.DatabaseConfiguration;
 import com.example.demofb.DTO.UserDTO;
 import com.example.demofb.Enums.Role;
 import com.mysql.cj.jdbc.Driver;
@@ -14,12 +15,13 @@ public class UserDAO {
 private Connection connection;
     public void connect() throws SQLException {
         Driver driver = new Driver();
+        DatabaseConfiguration databaseConfiguration = new DatabaseConfiguration();
         Properties properties = new Properties();
-        properties.setProperty("user", "root");
-        properties.setProperty("password", "password");
+        properties.setProperty("user", databaseConfiguration.getUser());
+        properties.setProperty("password", databaseConfiguration.getPassword());
 //        Class.forName("com.mysql.cj.jdbc.Driver");
         if (connection==null||connection.isClosed()){
-            connection = driver.connect("jdbc:mysql://localhost:3306/Demo_FB", properties);
+            connection = driver.connect(databaseConfiguration.getUrl(), properties);
         }
     }
 
